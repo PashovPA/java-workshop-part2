@@ -1,4 +1,4 @@
-package com.pashovpa;
+package com.pashovpa.firstproblem;
 
 import com.pashovpa.firstproblem.CashMachine;
 import org.junit.jupiter.api.Test;
