@@ -8,8 +8,8 @@ public class MyQueueTest {
 
   @Test
   public void testIsEmpty() {
-    MyQueue emptyQueue = new MyQueue();
-    MyQueue notEmptyQueue = new MyQueue();
+    MyQueue<Integer> emptyQueue = new MyQueue<>();
+    MyQueue<Integer> notEmptyQueue = new MyQueue<>();
     notEmptyQueue.add(1);
 
     assertTrue(emptyQueue.isEmpty());
@@ -18,8 +18,8 @@ public class MyQueueTest {
 
   @Test
   public void testPoll() {
-    MyQueue excepted = new MyQueue();
-    MyQueue actual = new MyQueue();
+    MyQueue<Integer> excepted = new MyQueue<>();
+    MyQueue<Integer> actual = new MyQueue<>();
 
     for (int i = 0; i < 3; i++) {
       excepted.add(i);
@@ -33,13 +33,13 @@ public class MyQueueTest {
 
   @Test
   public void testPollEmpty() {
-    MyQueue emptyQueue = new MyQueue();
-    assertEquals(null, emptyQueue.poll());
+    MyQueue<Integer> emptyQueue = new MyQueue<>();
+    assertNull(emptyQueue.poll());
   }
 
   @Test
   public void testAddNull() {
-    MyQueue test = new MyQueue();
+    MyQueue<Integer> test = new MyQueue<>();
     assertFalse(test.add(null));
   }
 }
