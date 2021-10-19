@@ -1,6 +1,5 @@
 package com.pashovpa.firstproblem;
 
-import com.pashovpa.firstproblem.CashMachine;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
