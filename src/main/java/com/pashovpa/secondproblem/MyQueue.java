@@ -3,61 +3,26 @@ package com.pashovpa.secondproblem;
 import java.util.*;
 
 public class MyQueue<E> implements Queue<E> {
-  private Node<E> first;
-  private int size;
-
-  private static class Node<E> {
-    E item;
-    Node<E> next;
-
-    Node(E element, Node<E> next) {
-      this.item = element;
-      this.next = next;
-    }
-  }
+  private MyLinkedList<E> itemsList;
 
   public MyQueue() {
-    first = null;
-    size = 0;
+    itemsList = new MyLinkedList<>();
   }
 
   public int size() {
-    return size;
+    return itemsList.size();
   }
 
   public boolean isEmpty() {
-    return first == null;
+    return itemsList.isEmpty();
   }
 
   public E poll() {
-    if (!isEmpty()) {
-      E resultItem = first.item;
-      first = first.next;
-      size--;
-      return resultItem;
-    } else {
-      return null;
-    }
+    return itemsList.remove(0);
   }
 
   public boolean add(E newItem) {
-    if (newItem != null) {
-      Node<E> newNode = new Node<>(newItem, null);
-      Node<E> currentNode = first;
-
-      if (isEmpty()) {
-        first = newNode;
-      } else {
-        while (currentNode.next != null) {
-          currentNode = currentNode.next;
-        }
-        currentNode.next = newNode;
-      }
-      size++;
-      return true;
-    } else {
-      return false;
-    }
+    return itemsList.add(newItem);
   }
 
   @Override
