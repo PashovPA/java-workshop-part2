@@ -2,21 +2,21 @@ package com.pashovpa.thirdproblem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DirectoryReader {
-  private final String path;
   private final File directory;
 
   public DirectoryReader(String path) throws FileNotFoundException {
     File checkedDirectory = new File(path);
     verifyDirectory(checkedDirectory);
 
-    this.path = path;
     this.directory = checkedDirectory;
   }
 
+  @Override
   public String toString() {
     List<String> directoryList = getDirectoryListing(directory);
     StringBuilder sb = new StringBuilder();
@@ -41,7 +41,7 @@ public class DirectoryReader {
     return result;
   }
 
-  private void verifyDirectory(File directory) throws FileNotFoundException {
+  protected static void verifyDirectory(File directory) throws FileNotFoundException {
     if (!directory.exists()) {
       throw new FileNotFoundException("Such directory does not exist: " + directory.getPath());
     }
@@ -51,10 +51,10 @@ public class DirectoryReader {
   }
 
   public static void main(String[] args) {
-    try {
-      DirectoryReader test = new DirectoryReader(".\\src");
-      System.out.println(test);
-    } catch (FileNotFoundException e) {
+    try (FileWriter fileWriter = new FileWriter(args[1])) {
+      DirectoryReader directoryReader = new DirectoryReader(args[0]);
+      fileWriter.write(directoryReader.toString());
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
