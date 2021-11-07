@@ -38,6 +38,7 @@ public class DirectoryReaderTest {
     List<String> expected = new ArrayList<>();
     expected.add(".\\src\\test\\resources\\testDirectory\\existFile.txt");
     expected.add(".\\src\\test\\resources\\testDirectory\\insertDirectory");
+    expected.add(".\\src\\test\\resources\\testDirectory\\insertDirectory\\existInsertFile.txt");
     List<String> actual = testDirectoryReader.getList();
 
     assertEquals(expected, actual);
