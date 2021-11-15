@@ -79,7 +79,7 @@ public class MultithreadedTangent {
     return valuesList;
   }
 
-  public static void writeValuesListToFile(String fileName, List<Double> arguments, List<Double> values) {
+  public static void writeToFile(String fileName, List<Double> arguments, List<Double> values) {
     if (Files.exists(Path.of(fileName))) {
       throw new IllegalArgumentException("File exists! Can not be rewritten!");
     }

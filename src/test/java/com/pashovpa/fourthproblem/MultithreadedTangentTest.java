@@ -4,10 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MultithreadedTangentTest {
   private final String argumentFilePath = ".\\src\\test\\resources\\MultiTangentArguments.txt";
+  private final String existResultFilePath = ".\\src\\test\\resources\\MultiTangentResult.txt";
   private List<Double> arguments;
 
   public void setUp(int amountOfNumbers) {
@@ -20,6 +25,32 @@ public class MultithreadedTangentTest {
     }
 
     this.arguments = MultithreadedTangent.getArgumentsListFromFile(argumentFilePath);
+  }
+
+  @Test
+  public void testGetArgumentsListFromFile() {
+    List<Double> expected = new ArrayList<>();
+    for (int i = 0; i < 10; i++) {
+      expected.add((double) i);
+    }
+    setUp(10);
+    assertEquals(this.arguments, expected);
+  }
+
+  @Test
+  public void testTan() {
+    List<Double> expected = new ArrayList<>();
+    for (int i = 0; i < 10; i++) {
+      expected.add(Math.tan(i));
+    }
+    setUp(10);
+    List<Double> actual = MultithreadedTangent.tan(this.arguments, 10);
+    assertEquals(actual, expected);
+  }
+
+  @Test
+  public void testWriteToExistFile() {
+    assertThrows(IllegalArgumentException.class, () -> MultithreadedTangent.writeToFile(existResultFilePath, arguments, arguments));
   }
 
   @Test
