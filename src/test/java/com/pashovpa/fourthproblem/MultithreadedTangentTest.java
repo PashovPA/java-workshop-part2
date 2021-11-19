@@ -61,12 +61,12 @@ public class MultithreadedTangentTest {
     start = System.currentTimeMillis();
     MultithreadedTangent.tan(arguments, 1);
     end = System.currentTimeMillis();
-    System.out.println("Execution time for N = 10 in single-threaded mode: " + (end - start));
+    System.out.println("Execution time for N = 10 in single-threaded mode: " + (end - start) + "ms");
 
     start = System.currentTimeMillis();
     MultithreadedTangent.tan(arguments, 10);
     end = System.currentTimeMillis();
-    System.out.println("Execution time for N = 10 in multithreaded mode: " + (end - start));
+    System.out.println("Execution time for N = 10 in multithreaded mode: " + (end - start) + "ms");
   }
 
   @Test
@@ -77,12 +77,12 @@ public class MultithreadedTangentTest {
     start = System.currentTimeMillis();
     MultithreadedTangent.tan(arguments, 1);
     end = System.currentTimeMillis();
-    System.out.println("Execution time for N = 100 in single-threaded mode: " + (end - start));
+    System.out.println("Execution time for N = 100 in single-threaded mode: " + (end - start) + "ms");
 
     start = System.currentTimeMillis();
     MultithreadedTangent.tan(arguments, 10);
     end = System.currentTimeMillis();
-    System.out.println("Execution time for N = 100 in multithreaded mode: " + (end - start));
+    System.out.println("Execution time for N = 100 in multithreaded mode: " + (end - start) + "ms");
   }
 
   @Test
@@ -93,11 +93,11 @@ public class MultithreadedTangentTest {
     start = System.currentTimeMillis();
     MultithreadedTangent.tan(arguments, 1);
     end = System.currentTimeMillis();
-    System.out.println("Execution time for N = 1000000 in single-threaded mode: " + (end - start));
+    System.out.println("Execution time for N = 1000000 in single-threaded mode: " + (end - start) + "ms");
 
     start = System.currentTimeMillis();
     MultithreadedTangent.tan(arguments, 10);
     end = System.currentTimeMillis();
-    System.out.println("Execution time for N = 1000000 in multithreaded mode: " + (end - start));
+    System.out.println("Execution time for N = 1000000 in multithreaded mode: " + (end - start) + "ms");
   }
 }

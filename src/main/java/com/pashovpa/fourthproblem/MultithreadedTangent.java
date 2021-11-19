@@ -17,49 +17,32 @@ public class MultithreadedTangent {
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
       String argumentsString;
       double[] argumentsDoubleRow;
-      while ((argumentsString = bufferedReader.readLine()) != null) {
-        if ((!argumentsString.replaceAll("\\s+", "").replaceAll("\\.", "").matches("\\d+"))) {
-          throw new IOException("Invalid value! File must contain only numbers without other characters!");
+      try {
+        while ((argumentsString = bufferedReader.readLine()) != null) {
+          argumentsDoubleRow = Arrays.stream(argumentsString.trim().split("\\s+")).mapToDouble(Double::parseDouble).toArray();
+          for (double arg : argumentsDoubleRow) {
+            argumentsList.add(arg);
+          }
         }
-        argumentsDoubleRow = Arrays.stream(argumentsString.trim().split("\\s+")).mapToDouble(Double::parseDouble).toArray();
-        for (double arg : argumentsDoubleRow) {
-          argumentsList.add(arg);
-        }
+      } catch (IOException e) {
+        System.err.println("Invalid values! File must contain only real numbers separated by a space without any other characters!");
       }
     } catch (IOException e) {
-      System.out.println("Input error!");
       e.printStackTrace();
     }
     return argumentsList;
   }
 
   public static List<Double> tan(List<Double> arguments, int nThreads) {
-    if (nThreads == 0) {
+    if (nThreads <= 0) {
       throw new IllegalArgumentException("Number of threads must be greater than zero!");
-    }
-
-    int div = arguments.size() / nThreads;
-    int mod = arguments.size() % nThreads;
-    int[] indexArray = new int[arguments.size()];
-    Arrays.fill(indexArray, div);
-    for (int i = 0; i < mod; i++) {
-      indexArray[i]++;
     }
 
     double[] values = new double[arguments.size()];
     ExecutorService executorService = Executors.newFixedThreadPool(nThreads);
-    for (int i = 0; i < nThreads; i++) {
+    for (int i = 0; i < arguments.size(); i++) {
       int finalI = i;
-      executorService.execute(() -> {
-        int sumIndex = 0;
-        for (int j = 0; j < finalI; j++) {
-          sumIndex += indexArray[j];
-        }
-        for (int j = 0; j < indexArray[finalI]; j++) {
-          values[sumIndex] = Math.tan(arguments.get(sumIndex));
-          sumIndex++;
-        }
-      });
+      executorService.execute(() -> values[finalI] = Math.tan(arguments.get(finalI)));
     }
 
     executorService.shutdown();
@@ -75,7 +58,6 @@ public class MultithreadedTangent {
     for (double value : values) {
       valuesList.add(value);
     }
-
     return valuesList;
   }
 
