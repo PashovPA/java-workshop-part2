@@ -6,9 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class MultithreadedTangent {
 
@@ -38,11 +36,11 @@ public class MultithreadedTangent {
       throw new IllegalArgumentException("Number of threads must be greater than zero!");
     }
 
-    double[] values = new double[arguments.size()];
     ExecutorService executorService = Executors.newFixedThreadPool(nThreads);
+    List<Future<Double>> futures = new ArrayList<>();
     for (int i = 0; i < arguments.size(); i++) {
       int finalI = i;
-      executorService.execute(() -> values[finalI] = Math.tan(arguments.get(finalI)));
+      futures.add(executorService.submit(() -> Math.tan(arguments.get(finalI))));
     }
 
     executorService.shutdown();
@@ -55,8 +53,12 @@ public class MultithreadedTangent {
     }
 
     List<Double> valuesList = new ArrayList<>();
-    for (double value : values) {
-      valuesList.add(value);
+    for (Future<Double> future : futures) {
+      try {
+        valuesList.add(future.get());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     return valuesList;
   }
