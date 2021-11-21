@@ -37,6 +37,9 @@ public class WordParser {
     if (Files.exists(Path.of(filePath))) {
       throw new IllegalArgumentException("File exists! Can not be rewritten!");
     }
+    if (Files.isDirectory(Paths.get(filePath))) {
+      throw new IllegalArgumentException("Such file is directory!");
+    }
 
     try (FileWriter fileWriter = new FileWriter(filePath)) {
       for (var entry : map.entrySet()) {
@@ -47,9 +50,15 @@ public class WordParser {
     }
   }
 
-  public static void createFiles(String directoryPath, Map<String, Integer> map, int nThreads) {
+  public static void createFiles(String directoryPath, Map<String, Integer> map, int nThreads) throws FileNotFoundException {
     if (nThreads <= 0) {
       throw new IllegalArgumentException("Number of threads must be greater than zero!");
+    }
+    if (!Files.exists(Paths.get(directoryPath))) {
+      throw new FileNotFoundException("Such directory does not exist!");
+    }
+    if (!Files.isDirectory(Paths.get(directoryPath))) {
+      throw new IllegalArgumentException("This is not a directory!");
     }
 
     Map<String, CompletableFuture<String>> completableFutureMap = new HashMap<>();
@@ -73,8 +82,8 @@ public class WordParser {
   }
 
   public static void main(String[] args) throws IOException {
-    var result = WordParser.countWordsInFile(".\\src\\test\\resources\\WordParserTest.txt");
-    WordParser.writeToFile(".\\src\\test\\resources\\counts.txt", result);
-    WordParser.createFiles(".\\src\\test\\resources\\WordParserTest", result, 10);
+    var result = WordParser.countWordsInFile(".\\src\\test\\resources\\WordParserTest\\WarAndPeace.txt");
+    WordParser.writeToFile(".\\src\\test\\resources\\WordParserTest\\counts.txt", result);
+    WordParser.createFiles(".\\src\\test\\resources\\WordParserTest\\CreatedFiles", result, 10);
   }
 }

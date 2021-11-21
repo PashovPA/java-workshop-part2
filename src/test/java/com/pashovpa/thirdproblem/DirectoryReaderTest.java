@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DirectoryReaderTest {
-  private final String existFilePath = ".\\src\\test\\resources\\testDirectory\\existFile.txt";
+  private final String existFilePath = ".\\src\\test\\resources\\TestDirectory\\ExistFile.txt";
   private DirectoryReader testDirectoryReader;
 
   @BeforeAll
   public void setUp() {
-    testDirectoryReader = new DirectoryReader(".\\src\\test\\resources\\testDirectory");
+    testDirectoryReader = new DirectoryReader(".\\src\\test\\resources\\TestDirectory");
   }
 
   @Test
@@ -36,9 +36,9 @@ public class DirectoryReaderTest {
   @Test
   public void testGetList() {
     List<String> expected = new ArrayList<>();
-    expected.add(".\\src\\test\\resources\\testDirectory\\existFile.txt");
-    expected.add(".\\src\\test\\resources\\testDirectory\\insertDirectory");
-    expected.add(".\\src\\test\\resources\\testDirectory\\insertDirectory\\existInsertFile.txt");
+    expected.add(".\\src\\test\\resources\\TestDirectory\\ExistFile.txt");
+    expected.add(".\\src\\test\\resources\\TestDirectory\\InsertDirectory");
+    expected.add(".\\src\\test\\resources\\TestDirectory\\InsertDirectory\\ExistInsertFile.txt");
     List<String> actual = testDirectoryReader.getList();
 
     assertEquals(expected, actual);
