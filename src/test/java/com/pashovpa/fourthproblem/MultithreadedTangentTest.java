@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MultithreadedTangentTest {
-  private final String argumentFilePath = ".\\src\\test\\resources\\MultiTangentArguments.txt";
-  private final String existResultFilePath = ".\\src\\test\\resources\\MultiTangentResult.txt";
+  private final String argumentFilePath = ".\\src\\test\\resources\\MultiTangentTest\\MultiTangentArguments.txt";
+  private final String existResultFilePath = ".\\src\\test\\resources\\MultiTangentTest\\MultiTangentResult.txt";
   private List<Double> arguments;
 
   public void setUp(int amountOfNumbers) {
